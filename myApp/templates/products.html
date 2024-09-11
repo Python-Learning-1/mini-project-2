@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Automobile Store</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'homepage' %}">Home</a></li>
+                <li><a href="{% url 'products' %}">Products</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Our Products are listed here</h1>
+        <table>
+            <tr>
+                <td>Country</td>
+            </tr>
+            <td>Company/Self</td>
+        </table>
+        <ul>
+            <li>Select Brand</li>
+            <li>Select accessories</li>
+        </ul>
+        <h2>Search the Products</h2>
+        <h3>Add to cart</h3>
+        <div class="product-list">
+            {% for product in products %}
+            <div class="product-item">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h2>{{ product.name }}</h2>
+                <p>{{ product.description }}</p>
+                <p>${{ product.price }}</p>
+                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Products Page </p>
+    </footer>
+</body>
+
+</html>
