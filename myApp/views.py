@@ -12,6 +12,7 @@ from .forms import ContactForm
 def homepage(request):
     return render(request, 'homepage.html')
 
+
 def products(request):
     products = Product.objects.all()
     return render(request, 'products.html', {'products': products})
